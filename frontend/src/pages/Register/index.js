@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi'
 
 import api from '../../services/api';
@@ -7,6 +7,9 @@ import logoImg from '../../assets/logo.svg'
 import './styles.css'
 
 export default function Register(){
+
+    const history = useHistory();
+
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [whatsapp, setWhatsApp] = useState('');
@@ -26,7 +29,8 @@ export default function Register(){
 
         try{
             const response = await api.post('ongs', data);
-            alert(`Seu ID de acesso: ${response.data.id}`)            
+            alert(`Seu ID de acesso: ${response.data.id}`);
+            history.push('/');         
         }
 
         catch(err){
