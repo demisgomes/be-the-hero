@@ -14,15 +14,15 @@ export default function Register(){
                   
                     <h1>Cadastro</h1>
                     <p>Faça seu cadastro, entre na plataforma e ajude pessoas a encontrarem os casos da sua ONG.</p>
-                    <Link className="back-link" to="/register">
+                    <Link className="back-link" to="/">
                         <FiArrowLeft size={16}  color="#e02041"/>
-                        Não tenho cadastro                    
+                        Voltar para o logon                   
                     </Link>
                </section>
 
                <form>
                 <input placeholder="Nome da ONG" type="text"/>
-                <input placeholder="email" type="text"/>
+                <input placeholder="Email" type="text"/>
                 <input placeholder="WhatsApp" type="text"/>
 
                 <div className="input-group">
