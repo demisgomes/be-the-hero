@@ -1,22 +1,72 @@
 import React from 'react';
-import { View, Image, Text } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { View, Image, Text, TouchableOpacity, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import * as MailComposer from 'expo-mail-composer'
 
 import styles from './styles';
 import logoImg from '../../assets/logo.png'
-
 export default function Detail(){
+    const navigation = useNavigation();
+    const message = "Olá ONG! estou entrando em contato pois gostaria de ajudar no caso 'Doação de Cabelo' com valor '120'";
+
+    function navigateBack(){
+        navigation.goBack();
+    }
+
+    function sendEmail(){
+        MailComposer.composeAsync({
+             subject: 'Herói do caso: ...',
+             recipients: ['demismg72@gmail.com'],
+             body: message
+        });
+        
+    }
+
+    function sendWhatsApp(){
+        Linking.openURL(`whatsapp://send?phone=5519993278829&text=${message}`)
+    }
+
     return(
         <View style={styles.container}>
+            
             <View style={styles.header}>
                 <Image source={logoImg} />
-                <Text style={styles.headerText}>
-                    Total de <Text style ={styles.headerTextBold}>0 casos</Text>
-                </Text>
+                
+                <TouchableOpacity onPress={navigateBack}>
+                    <Feather name="arrow-left" size={28} color="#E82041" />
+                </TouchableOpacity>
             </View>
 
-            <Text style={styles.title}>Bem-vindo!</Text>
-            <Text style={styles.description}>Escolha um dos casos abaixo e salve o dia</Text>
-            
+            <View style={styles.incident}>
+                <Text style={styles.incidentProperty, { marginTop: 0 }}>ONG:</Text>
+                <Text style={styles.incidentValue}>HCP</Text>
+
+                <Text style={styles.incidentProperty}>CASO:</Text>
+                <Text style={styles.incidentValue}>Doação de cabelo</Text>
+
+                <Text style={styles.incidentProperty}>VALOR:</Text>
+                <Text style={styles.incidentValue}>R$ 180,00</Text>
+            </View>
+
+            <View style={styles.contactBox}>
+                <Text style={styles.heroTitle}>Salve o dia!</Text>
+                <Text style={styles.heroTitle}>Seja o herói desse caso</Text>
+                <Text style={styles.heroDescription}>Entre em contato:</Text>
+
+                <View style={styles.actions}>
+                    <TouchableOpacity style={styles.action} onPress={sendWhatsApp}>
+                        <Text style={styles.actionText}>WhatsApp</Text>
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity style={styles.action} onPress={sendEmail}>
+                        <Text style={styles.actionText}>E-mail</Text>
+                    </TouchableOpacity>
+                
+                </View>
+                
+            </View>
         </View>
     )
 }
